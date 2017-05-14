@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{% static 'style/style.css' %}">
 </head>
 <body>
-    <div id="main-container">
+    <div ng-app="pronunciationWordApp" ng-controller="pronunciationWordController" id="main-container">
         <div id="project-name-header">
             Prononcify
         </div>
@@ -15,7 +15,7 @@
             <div class="search-container">
                 <div id="search-header">Search for words</div>
                 <div id="search-content">
-                    <form id="searchPronunciationWordForm" name="searchForWordForm">
+                    <form ng-submit="getPronunciationWords($event)" id="searchPronunciationWordForm" name="searchForWordForm">
                         <input autocomplete="off" type="text" id="searchPronunciationWord" name="searchPronunciationWord">
                         <button class="button search" type="submit">Otsi</button>
                     </form>
@@ -38,6 +38,10 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.3/angular-route.js"></script>
+
     <script src="{% static 'script/script.js' %}"></script>
 </body>
 </html>

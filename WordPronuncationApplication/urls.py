@@ -6,7 +6,7 @@ from WordPronuncationApplication.views import IndexView, WordView
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
-    url(r'words/(?P<searchWord>.*)^$', WordView.as_view(), name='searchWord')
+    url(r'^words/(?P<searchWord>.*)/$', WordView.as_view(), name='searchWord')
 
 ]
 
