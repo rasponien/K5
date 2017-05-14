@@ -12,6 +12,15 @@
             Prononcify
         </div>
         <div id="content">
+            <div class="search-container">
+                <div id="search-header">Search for words</div>
+                <div id="search-content">
+                    <form id="searchPronunciationWordForm" name="searchForWordForm">
+                        <input autocomplete="off" type="text" id="searchPronunciationWord" name="searchPronunciationWord">
+                        <button class="button search" type="submit">Otsi</button>
+                    </form>
+                </div>
+            </div>
             {% for word in words %}
                 <div class="word-container">
                     <div class="word">{{ word.word }}</div>
