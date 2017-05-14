@@ -24,3 +24,9 @@ class IndexView(View):
 
     def get(self, request):
         return render(request, 'index.html', {'words' : Word.objects()[:5]})
+
+class WordView(View):
+
+    def get(self, request, searchWord):
+        print(searchWord)
+        return render(request, 'index.html', {'words' : Word.objects()[:5]})
