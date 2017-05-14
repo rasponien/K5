@@ -19,7 +19,7 @@ DB_CONNECTION = connect('WordPronunciationDB', username='superuser', password='1
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-AUDIO_DIR_NAME = "WordPronuncationApplication\\static\\audio_files"
+AUDIO_DIR_NAME = "WordPronunciationApplication\\static\\audio_files"
 AUDIO_DIR = os.path.join(BASE_DIR, AUDIO_DIR_NAME)
 
 
@@ -33,7 +33,7 @@ SECRET_KEY = '4(g#&0=8%t3vkkulzb3q7apq&31i_pf8cvr@ksa&wjx1d^(zf('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
 # Application definition
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'WordPronuncationApplication'
+    'WordPronunciationApplication'
 ]
 
 MIDDLEWARE = [
