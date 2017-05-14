@@ -4,7 +4,7 @@ from .models import Word
 from K5.settings import AUDIO_DIR, AUDIO_DIR_NAME
 import os
 from mutagen.flac import FLAC
-
+import re
 # Create your views here.
 
 def addWordsToDB():
@@ -27,6 +27,8 @@ class IndexView(View):
 
 class WordView(View):
 
-    def get(self, request, searchWord):
-        print(searchWord)
-        return render(request, 'index.html', {'words' : Word.objects()[:5]})
+    def get(self, request):
+        print(request.GET)
+        r = re.compile(".*" + request.GET["searchWord"] + ".*")
+        words = Word.objects(__raw__={'word' : {'$regex' : r}})[:5]
+        return render(request, 'index.html', {'words' : words})

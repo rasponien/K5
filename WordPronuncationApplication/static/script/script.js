@@ -5,7 +5,7 @@ function playMusic(elementClass) {
     $("."+elementClass)[0].play()
 }
 
-$("#searchPronunciationWordForm").submit(searchPronunciationWords);
+//$("#searchPronunciationWordForm").submit(searchPronunciationWords);
 
 
 function searchPronunciationWords(event) {
@@ -13,7 +13,7 @@ function searchPronunciationWords(event) {
     param = {
         "url"   : "words/",
         "data"  : {
-            searchWord : $("#searchPronunciationWord").val(),
+            searchWord : $("#searchWord").val(),
         },
         "success": function (response) {
             console.log(response)
