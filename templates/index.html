@@ -11,11 +11,12 @@
         <div id="project-name-header">
             Prononcify
         </div>
-        <div id="">
+        <div id="content">
             {% for word in words %}
-                <div class="word">
-                    <p>{{ word.word }}</p>
+                <div class="word-container">
+                    <div class="word">{{ word.word }}</div>
                     <div class="pronunciation" onclick="playMusic('audio{{ forloop.counter }}')">
+                        Play
                         <audio class="audio{{ forloop.counter }}">
                             {% with 'audio_files/'|add:word.pronunciation.file_name as audio_static %}
                                 <source src="{% static audio_static %}">

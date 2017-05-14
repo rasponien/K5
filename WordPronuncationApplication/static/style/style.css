@@ -21,17 +21,34 @@ body {
     border-bottom: 10px solid #293;
 }
 
-
-.pronunciation {
-    width: 30px;
-    height: 30px;
-    background: #000;
+#content {
+    margin-top: 60px;
+    margin-bottom: 60px;
 }
 
-.word {
+.word-container {
     width: 50%;
-    margin: 0 auto;
+    margin: 40px auto;
+    height: 100px;
     text-align: center;
     font-size: 30px;
     border: 2px solid #ddd;
+    display: -webkit-box;
+    line-height: 90px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.word {
+    width: 80%;
+    font-family: fantasy;
+}
+
+.pronunciation {
+    width: 200px;
+    background: #306e0f;
+    color: #fff;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
 }
