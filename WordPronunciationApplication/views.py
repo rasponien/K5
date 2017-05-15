@@ -78,7 +78,7 @@ def save_file(file, filename):
 class WordView(View):
     def get(self, request, searchword):
 
-        r = re.compile("^"+searchword)
+        r = re.compile(searchword)
         #print(WORDS.find({'word' : r}))
         words = Word.objects(__raw__={'word' : {'$regex' : r}})[:5]
         print(words)
