@@ -36,6 +36,5 @@ class WordView(View):
         for i, w in enumerate(words):
             print(w.pronunciation.file_name)
             results[i] = {"word": w.word, "file_name":"/static/audio_files/" + w.pronunciation.file_name}
-
         return JsonResponse(results)
 
