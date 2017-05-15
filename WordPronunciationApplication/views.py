@@ -6,7 +6,6 @@ from K5.settings import AUDIO_DIR, AUDIO_DIR_NAME, WORDS, FILES
 import os
 from mutagen.flac import FLAC
 import re
-import uuid
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -64,7 +63,9 @@ class WordView(View):
 
 
         r = re.compile(searchword + ".*")
+        print(WORDS.find({'word' : r}))
         words = Word.objects(__raw__={'word' : {'$regex' : r}})[:5]
+        print(words)
         results = {}
         for i, w in enumerate(words):
             #print(w.pronunciation.file_name)
