@@ -12,9 +12,14 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 from mongoengine import connect
-from gridfs import GridFS
+import gridfs
+from pymongo import MongoClient
 
 DB_CONNECTION = connect('WordPronunciationDB', username='superuser', password='123456789i')
+CLIENT = MongoClient('localhost:27017')
+DB = CLIENT.get_database('WordPronunciationDB')
+FILES = gridfs.GridFS(DB)
+WORDS = DB.get_collection("word")
 """
 db.createUser(
   {

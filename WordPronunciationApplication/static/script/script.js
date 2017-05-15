@@ -24,7 +24,9 @@ app.controller('pronunciationWordController', function ($scope, $http, $rootScop
             function error(response) { console.log("SearchFrom Error"); })
     };
     $scope.playMusic = function(id) {
-        new Audio(id).play()
+        console.log("tere");
+        console.log(id);
+        new Audio(id).play();
         //$("#audio" + id.toString())[0].play()
     }
 });

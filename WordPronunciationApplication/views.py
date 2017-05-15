@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from django.http import JsonResponse
 from .models import Word
-from K5.settings import AUDIO_DIR, AUDIO_DIR_NAME
+from K5.settings import AUDIO_DIR, AUDIO_DIR_NAME, WORDS, FILES
 import os
 from mutagen.flac import FLAC
 import re
@@ -11,15 +11,18 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
-
 def add_words_to_db():
     print("reading files to database")
-    for file in os.listdir(AUDIO_DIR):
+    for i, file in enumerate(os.listdir(AUDIO_DIR)):
         if file.endswith(".flac"):
-            print("file:    " + AUDIO_DIR_NAME + '/' + file)
-            word = Word(word=FLAC(os.path.join(AUDIO_DIR, file))['title'][0])
-            word.pronunciation.put(open(AUDIO_DIR_NAME + '/' + file, 'rb'), file_name=file)
-            word.save()
+            WORDS.insert(
+                {
+                    "word": FLAC(os.path.join(AUDIO_DIR, file))['title'][0],
+                    "pronunciation": FILES.put(open(AUDIO_DIR_NAME + '/' + file, 'rb'), file_name=file)
+                }
+            )
+        if (i == 5):
+            break
     print("Done.")
 
 
@@ -35,12 +38,12 @@ class FileUpload(View):
 
     @csrf_exempt
     def post(self, request):
+        print("tere")
         if "word" in request.POST and "file" in request.FILES:
-            print(request.FILES["file"])
-            name = "custom_" + str(uuid.uuid4()) + "_" + str(request.FILES["file"])
-            save_file( request.FILES["file"], name)
+            print(AUDIO_DIR_NAME + '/' + str(request.FILES["file"]))
+            print(request.POST["word"])
             word = Word(word=request.POST["word"])
-            word.pronunciation.put(open(os.path.join(os.path.dirname(__file__), "static","audio_files",name),"rb"),file_name=name)
+            word.pronunciation.put(open(AUDIO_DIR_NAME + '/' + str(request.FILES["file"]), 'rb'),file_name=str(request.FILES["file"]))
             word.save()
             return JsonResponse({"success":True,"msg":"File successfully uploaded"})
         else:
@@ -54,11 +57,17 @@ def save_file(file, filename):
 
 class WordView(View):
     def get(self, request, searchword):
+        for word in WORDS.find():
+            file = FILES.get(word["pronunciation"])
+            file.read()
+            print(file.file_name)
+
+
         r = re.compile(searchword + ".*")
         words = Word.objects(__raw__={'word' : {'$regex' : r}})[:5]
         results = {}
         for i, w in enumerate(words):
-            print(w.pronunciation.file_name)
+            #print(w.pronunciation.file_name)
             results[i] = {"word": w.word, "file_name":"/static/audio_files/" + w.pronunciation.file_name, "id":str(w.id)}
         return JsonResponse(results)
 

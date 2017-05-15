@@ -28,6 +28,7 @@
             <div ng-repeat="(i, word) in words">
                 <div class="word-container">
                     <div class="word">{{ word.word }}</div>
+                    <div> {{ word.file_name }} </div>
                     <div class="pronunciation" ng-click="playMusic( word.file_name )">
                         Play
                     </div>
