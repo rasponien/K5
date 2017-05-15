@@ -15,11 +15,19 @@ from mongoengine import connect
 from gridfs import GridFS
 
 DB_CONNECTION = connect('WordPronunciationDB', username='superuser', password='123456789i')
-
+"""
+db.createUser(
+  {
+    user: "superuser",
+    pwd: "123456789i",
+    roles: [ { role: "readWrite", db:"WordPronunciationDB" } ]
+  }
+)
+"""
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-AUDIO_DIR_NAME = "WordPronunciationApplication\\static\\audio_files"
+AUDIO_DIR_NAME = os.path.join("WordPronunciationApplication","static","audio_files")
 AUDIO_DIR = os.path.join(BASE_DIR, AUDIO_DIR_NAME)
 
 

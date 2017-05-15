@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.base import View
+from django.http import JsonResponse
 from .models import Word
 from K5.settings import AUDIO_DIR, AUDIO_DIR_NAME
 import os
@@ -28,7 +29,10 @@ class IndexView(View):
 class WordView(View):
     def get(self, request, searchword):
         print(searchword)
-        print("asdfasdfasdf")
         r = re.compile(".*" + searchword + ".*")
-        words = Word.objects(__raw__={'word': {'$regex': r}})[:5]
-        return render(request, 'index.html', {'words': words})
+        words = Word.objects(__raw__={'word' : {'$regex' : r}})[:5]
+        results = {}
+        for i, w in enumerate(words):
+            print(w.pronunciation.file_name)
+            results[i] = {"word": w.word, "file_name":w.pronunciation.file_name}
+        return JsonResponse(results)
