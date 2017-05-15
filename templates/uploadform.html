@@ -5,10 +5,12 @@
     <title>Upload file</title>
 </head>
 <body>
-<form action="uploadfile" method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <input type="text" name="word">
-    <input type="file" name="file">
+    <input type="text" name="word"><br>
+    <input type="file" name="file"><br>
+    Force rewrite:
+    <input type="checkbox" name="force" checked="true"><br>
     <input type="submit">
 </form>
 </body>
