@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,8 @@
 </head>
 <body>
     <div ng-app="pronunciationWordApp" ng-controller="pronunciationWordController" id="main-container">
-        <div id="project-name-header">
+
+            <div id="project-name-header">
             Prononcify
         </div>
         <div id="content">
@@ -21,27 +23,27 @@
                     </form>
                 </div>
             </div>
-            {% for word in words %}
+            <div ng-repeat="(i, word) in words">
+                {% verbatim block%}
+                {{ i }}  {{ word }}
                 <div class="word-container">
                     <div class="word">{{ word.word }}</div>
-                    <div class="pronunciation" onclick="playMusic('audio{{ forloop.counter }}')">
+                    <div class="pronunciation" onclick="playMusic('{{ i }}')">
                         Play
-                        <audio class="audio{{ forloop.counter }}">
-                            {% with 'audio_files/'|add:word.pronunciation.file_name as audio_static %}
-                                <source src="{% static audio_static %}">
-                            {% endwith %}
+                        <audio id="audio{{ i }}">
+                                <source src="{{ word.file_name }}">
                         </audio>
                     </div>
                 </div>
-            {% endfor %}
+                {% endverbatim block%}
+            </div>
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.3/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.3/angular-route.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.3/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.3/angular-route.js"></script>
     <script src="{% static 'script/script.js' %}"></script>
 </body>
 </html>

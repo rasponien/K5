@@ -24,7 +24,7 @@ def addWordsToDB():
 class IndexView(View):
 
     def get(self, request):
-        return render(request, 'index.html', {'words' : Word.objects()[:5]})
+        return render(request, 'index.html')
 
 class WordView(View):
 
@@ -35,5 +35,5 @@ class WordView(View):
         results = {}
         for i, w in enumerate(words):
             print(w.pronunciation.file_name)
-            results[i] = {"word": w.word, "file_name":w.pronunciation.file_name}
+            results[i] = {"word": w.word, "file_name":"/static/audio_files/" + w.pronunciation.file_name}
         return JsonResponse(results)
