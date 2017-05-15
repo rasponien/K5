@@ -47,11 +47,13 @@ app.controller('pronunciationWordController', function ($scope, $http, $rootScop
             },
             function error(response) { console.log("SearchFrom Error"); })
     };
+    
     $scope.playMusic = function(id) {
-        console.log("tere");
-        console.log(id);
-        new Audio(id).play();
-        //$("#audio" + id.toString())[0].play()
+        new Audio("sound/?id=" + id).play()
+    }
+    $scope.hasNoResults = function() {
+        return ($scope.getWordsLength() == 0 && !$("#searchPronunciationWord").val()) ||
+            $scope.getWordsLength() == 0;
     }
 
     $scope.setWords = function (pronunciationWords) {$rootScope.words = pronunciationWords;}

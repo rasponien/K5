@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Upload file</title>
-</head>
-<body>
-
+<div id="search-header">Upload words</div>
 <div class="search-container">
-    <div id="search-header">Upload words</div>
     <div id="search-content">
-        <form action="uploadfile" method="post" enctype="multipart/form-data"
-                id="uploadPronunciationWordForm">
-            <input type="text" name="word">
-            <input type="file" name="file">
-            <input type="submit">
+        <form method="post" enctype="multipart/form-data" id="uploadPronunciationWordForm">
+            <input class="form-input" type="text" name="word">
+            <input class="form-input" type="file" name="file">
+            <p class="form-input">Force rewrite:</p>
+            <input class="form-input" type="checkbox" name="force" checked="true">
+            <input class="form-input" type="submit">
         </form>
     </div>
 </div>
-
-</body>
-</html>

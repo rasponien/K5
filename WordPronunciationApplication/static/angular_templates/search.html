@@ -1,5 +1,5 @@
+<div id="search-header">Search for words</div>
 <div class="search-container">
-    <div id="search-header">Search for words</div>
     <div id="search-content">
         <form ng-submit="getPronunciationWords($event)" ng-keyup="getPronunciationWords($event)"
               id="searchPronunciationWordForm" name="searchForWordForm">
@@ -8,7 +8,7 @@
     </div>
 </div>
 <div id="results">
-    <div class="noResults" ng-if="getWordsLength() == 0">No results</div>
+    <div class="noResults" ng-if="hasNoResults()">No results</div>
     <div ng-repeat="(i, word) in getWords()">
         <div class="word-container">
             <div class="word">{{ word.word }}</div>
