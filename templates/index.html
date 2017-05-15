@@ -17,32 +17,29 @@
             <div class="search-container">
                 <div id="search-header">Search for words</div>
                 <div id="search-content">
-                    <form ng-submit="getPronunciationWords($event)" id="searchPronunciationWordForm" name="searchForWordForm">
+                    <form ng-submit="getPronunciationWords($event)" ng-keyup="getPronunciationWords($event)"
+                          id="searchPronunciationWordForm" name="searchForWordForm">
                         <input autocomplete="off" type="text" id="searchPronunciationWord" name="searchPronunciationWord">
                         <button class="button search" type="submit">Otsi</button>
                     </form>
                 </div>
             </div>
+            {% verbatim %}
             <div ng-repeat="(i, word) in words">
-                {% verbatim block%}
-                {{ i }}  {{ word }}
                 <div class="word-container">
                     <div class="word">{{ word.word }}</div>
-                    <div class="pronunciation" onclick="playMusic('{{ i }}')">
+                    <div class="pronunciation" ng-click="playMusic( word.file_name )">
                         Play
-                        <audio id="audio{{ i }}">
-                                <source src="{{ word.file_name }}">
-                        </audio>
                     </div>
                 </div>
-                {% endverbatim block%}
             </div>
+            {% endverbatim %}
         </div>
     </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.3/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.3/angular.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.3/angular-route.js"></script>
     <script src="{% static 'script/script.js' %}"></script>
 </body>
