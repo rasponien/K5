@@ -7,11 +7,12 @@ var app = angular.module('pronunciationWordApp', ['ngRoute']);
 app.controller('pronunciationWordController', function ($scope, $http, $rootScope, $location) {
     $scope.words = [];
     $scope.getPronunciationWords = function (event) {
-        console.log("words/" + $("#searchPronunciationWord").val());
+        query_word = $("#searchPronunciationWord").val();
+        if (query_word.length === 0) return;
         event.preventDefault();
         $http({
             method: "GET",
-            url: "words/" + $("#searchPronunciationWord").val()
+            url: "words/" + query_word
         }).then(
             function success(response) {
                 //console.log(response["data"]);
@@ -19,16 +20,13 @@ app.controller('pronunciationWordController', function ($scope, $http, $rootScop
                     $scope.words.push({key: response["data"][key]})
                 }*/
                 $scope.words = response["data"];
-                console.log($scope.words)
             },
             function error(response) { console.log("SearchFrom Error"); })
+    };
+    $scope.playMusic = function(id) {
+        new Audio(id).play()
+        //$("#audio" + id.toString())[0].play()
     }
 });
 
 
-
-
-
-function playMusic(id) {
-    $("#audio" + id).play()
-}
