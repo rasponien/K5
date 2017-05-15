@@ -41,6 +41,7 @@ body {
     height: 80px;
     color: #fff;
     line-height: 70px;
+    font-size: 30px;
 }
 
 #content {
@@ -57,7 +58,6 @@ body {
 }
 
 .search-container {
-    display: flex;
     width: 100%;
     font-size: 40px;
     border: 2px solid #ddd;
@@ -120,12 +120,6 @@ button[type="submit"] {
     margin-left: 0%;
     padding-left: 0;
 }
-
-input[type="text"] {
-    margin-right: 0%;
-    padding-right: 0;
-}
-
 
 /* Style the tab */
 .tab {
@@ -201,4 +195,49 @@ input[type="text"] {
 .form-input {
     background: #000;
     width: 600px;
+}
+
+
+/* Upload form */
+
+#word-data {
+    width: 70%;
+    height: 200px;
+    margin: 0 auto;
+    font-size: 30px;
+    border: 2px solid #ccc;
+    padding: 20px 0;
+}
+#word-data > input[type="text"] {
+    width: 500px;
+}
+#word-data > input[type="file"] {
+    width: 400px;
+}
+
+
+
+#force > label {
+    font-size: 30px;
+
+}
+
+#force > input {
+    width: 30px;
+    height: 30px;
+}
+
+#force {
+    margin-top: 30px;
+}
+
+input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.feedbackInfo {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 40px;
 }

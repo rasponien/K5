@@ -12,7 +12,7 @@
     <div ng-repeat="(i, word) in getWords()">
         <div class="word-container">
             <div class="word">{{ word.word }}</div>
-            <div class="pronunciation" ng-click="playMusic( word.file_name )">
+            <div class="pronunciation" ng-click="playMusic( word.id )">
                 Play
             </div>
         </div>

@@ -1,12 +1,17 @@
-<div id="search-header">Upload words</div>
+<div id="search-header">Upload new word</div>
 <div class="search-container">
     <div id="search-content">
-        <form method="post" enctype="multipart/form-data" id="uploadPronunciationWordForm">
-            <input class="form-input" type="text" name="word">
-            <input class="form-input" type="file" name="file">
-            <p class="form-input">Force rewrite:</p>
-            <input class="form-input" type="checkbox" name="force" checked="true">
-            <input class="form-input" type="submit">
+        <div class="feedbackInfo" ng-if="getFeedbackInfo().length != 0">
+            {{ getFeedbackInfo() }}
+        </div>
+        <form ng-submit="addNewWord($event)" method="POST" enctype="multipart/form-data" id="uploadPronunciationWordForm">
+            <div id="word-data">
+                <input id="uploadedWord" type="text" name="word">
+                <input id="uploadedFile" type="file" name="file">
+            </div>
+                <label for="force">Force rewrite:</label>
+                <input type="checkbox" id="force" name="force" autocomplete="off">
+            <input class="pronunciation" type="submit">
         </form>
     </div>
 </div>

@@ -5,7 +5,7 @@ from .models import Word
 from K5.settings import AUDIO_DIR, AUDIO_DIR_NAME, WORDS, FILES
 import os
 from mutagen.flac import FLAC
-import re
+import re, json
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -41,33 +41,38 @@ class FileUpload(View):
         :param request-POST param:"word","file",["force"]: 
         :return Json response: 
         """
-        if "word" in request.POST and "file" in request.FILES:
-            file = request.FILES["file"]
+
+        body = json.loads(request.body.decode('utf-8'))
+
+        print(body["word"])
+        print(body["pronunciation"])
+        print(body["force"])
+        print(request.FILES)
+        print(request.POST)
+        if "word" in body and "pronunciation" in body:
+            file = body["pronunciation"].encode("UTF-8")
+            print(file)
             #if word is already in database:
-            if Word.objects.filter(word=request.POST["word"]).count() > 0:
+            if Word.objects.filter(word=body["word"]).count() > 0:
                 # Is change forced?
-                if "force" in request.POST and request.POST["force"] == "on":
+                if "force" in body and body["force"] == "on":
                     #Change is forced
-                    word = Word.objects.get(word=request.POST["word"])
+                    word = Word.objects.get(word=body["word"])
                     word.pronunciation.replace(file)
                     word.save()
-                    return JsonResponse({"success":True,
-                                         "msg":"File successfully modified"})
+                    return JsonResponse({"msg":"File successfully modified"})
                 else:
                     # Not forced
-                    return JsonResponse({"success":False,
-                                         "err":"FILE_EXISTS",
-                                         "msg":"Add '\"force\" : \"on\"' param to force rewrite"})
+                    return JsonResponse({"msg":"File already exists in the database."
+                                        "Check force rewrite to overwrite an existing file."})
             else:
                 # If file not in database, add it
-                word = Word(word=request.POST["word"])
+                word = Word(word=body["word"])
                 word.pronunciation.put(file)
                 word.save()
-                return JsonResponse({"success":True,"msg":"File successfully uploaded"})
+                return JsonResponse({"msg":"File successfully uploaded"})
         else:
-            return JsonResponse({"success":False,
-                                 "msg":"must contain 'word' and 'file' params and enctype='multipart/form-data'",
-                                 "err":"MISSING_PARAM"})
+            return JsonResponse({})
 
 
 def save_file(file, filename):
@@ -77,7 +82,6 @@ def save_file(file, filename):
 
 class WordView(View):
     def get(self, request, searchword):
-
         r = re.compile(searchword)
         #print(WORDS.find({'word' : r}))
         words = Word.objects(__raw__={'word' : {'$regex' : r}})[:5]
@@ -88,9 +92,12 @@ class WordView(View):
             results[i] = {"word": w.word, "id":str(w.id)}
         return JsonResponse(results)
 
+
 def get_sound(request):
     if "id" not in request.GET:
         return JsonResponse({"success":False,"msg":"'id' param is not in request"})
     word = Word.objects.get(id=request.GET["id"])
+    print(word.word)
+    print(word.pronunciation)
     sound = word.pronunciation
     return FileResponse(sound)
