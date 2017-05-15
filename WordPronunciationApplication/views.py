@@ -33,17 +33,17 @@ class IndexView(View):
 class FileUpload(View):
 
     def get(self, request):
-        return render(request, "uploadform.html")
+        return render(request, "static/angular_templates/upload.html")
 
     @csrf_exempt
     def post(self, request):
-        print("tere")
         if "word" in request.POST and "file" in request.FILES:
-            print(AUDIO_DIR_NAME + '/' + str(request.FILES["file"]))
-            print(request.POST["word"])
-            word = Word(word=request.POST["word"])
-            word.pronunciation.put(open(AUDIO_DIR_NAME + '/' + str(request.FILES["file"]), 'rb'),file_name=str(request.FILES["file"]))
-            word.save()
+            WORDS.insert(
+                {
+                    "word": request.POST["word"],
+                    "pronunciation": FILES.put(open(AUDIO_DIR_NAME + '/' + str(request.FILES["file"]), 'rb'), file_name=str(request.FILES["file"]))
+                }
+            )
             return JsonResponse({"success":True,"msg":"File successfully uploaded"})
         else:
             return JsonResponse({"success":False,"msg":"must contain 'word' and 'file' params and enctype='multipart/form-data'"})
