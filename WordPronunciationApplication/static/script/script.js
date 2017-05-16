@@ -71,8 +71,9 @@ app.controller('pronunciationWordController', function ($scope, $http, $rootScop
             processData: false,
         }).then(
             function success(response) {
-                console.log(response["data"]["msg"])
-                $scope.setFeedbackInfo(response["data"]["msg"]);
+                console.log(response)
+                console.log(response["msg"])
+                $scope.setFeedbackInfo(response["msg"]);
             },
             function error(response) { console.log("SearchFrom Error"); })
     }
