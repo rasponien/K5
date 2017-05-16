@@ -1,6 +1,7 @@
 <div id="search-header">Upload new word</div>
 <div class="search-container">
     <div id="search-content">
+        <div> {{ $rootScope.feedbackInfo.length }} </div>
         <div class="feedbackInfo" ng-if="getFeedbackInfo().length != 0">
             {{ getFeedbackInfo() }}
         </div>
