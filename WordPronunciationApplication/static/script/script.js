@@ -54,20 +54,21 @@ app.controller('pronunciationWordController', function ($scope, $http, $rootScop
         new_word = $("#uploadedWord").val();
         new_word_file = $("#uploadedFile").val();
         force = ($("#force").is(":checked")) ? "on" : "off";
-        console.log(force)
         if (new_word.length === 0 || new_word_file.length === 0) return;
-        console.log(new_word)
-        console.log(new_word_file)
         event.preventDefault();
-        $http({
-            method: "POST",
+    
+        var data = new FormData();
+        data.append("word", new_word);
+        data.append("force", force);
+        data.append('pronunciation', $('input[type=file]')[0].files[0]);
+        $.ajax({
+            type: "POST",
             url: "upload/",
-            contentType: "text/html",
-            data: {
-                word: new_word,
-                pronunciation: new_word_file,
-                force: force
-            }
+            data: data,
+            cache: false,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
         }).then(
             function success(response) {
                 console.log(response["data"]["msg"])
