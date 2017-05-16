@@ -42,21 +42,18 @@ class FileUpload(View):
         :return Json response: 
         """
 
-
-        print(request.FILES)
-        print(body["pronunciation"])
-        print("word" in request.POST)
         print(request.FILES)
         print(request.POST)
-        if "word" in body and "pronunciation" in body:
-            file = body["pronunciation"].encode("UTF-8")
-            print(file)
+        print("word" in request.POST and "pronunciation" in request.FILES)
+        print(request.POST["word"])
+        if "word" in request.POST and "pronunciation" in request.FILES:
+            file = request.FILES["pronunciation"]
             #if word is already in database:
-            if Word.objects.filter(word=body["word"]).count() > 0:
+            if Word.objects.filter(word=request.POST["word"]).count() > 0:
                 # Is change forced?
-                if "force" in body and body["force"] == "on":
+                if "force" in request.POST and request.POST["force"] == "on":
                     #Change is forced
-                    word = Word.objects.get(word=body["word"])
+                    word = Word.objects.get(word=request.POST["word"])
                     word.pronunciation.replace(file)
                     word.save()
                     return JsonResponse({"msg":"File successfully modified"})
@@ -66,7 +63,7 @@ class FileUpload(View):
                                         "Check force rewrite to overwrite an existing file."})
             else:
                 # If file not in database, add it
-                word = Word(word=body["word"])
+                word = Word(word=request.POST["word"])
                 word.pronunciation.put(file)
                 word.save()
                 return JsonResponse({"msg":"File successfully uploaded"})
