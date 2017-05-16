@@ -42,11 +42,10 @@ class FileUpload(View):
         :return Json response: 
         """
 
-        body = json.loads(request.body.decode('utf-8'))
 
-        print(body["word"])
+        print(request.FILES)
         print(body["pronunciation"])
-        print(body["force"])
+        print("word" in request.POST)
         print(request.FILES)
         print(request.POST)
         if "word" in body and "pronunciation" in body:
